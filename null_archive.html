@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@+#(@)#/@?(@+#+-+-_+></title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#050505;color:#d7d7d7;font:15px/1.6 monospace;min-height:100vh}
+main{max-width:820px;margin:auto;padding:48px 20px}
+h1{font-size:clamp(22px,5vw,42px);font-weight:400;letter-spacing:2px;word-break:break-all}
+.dim{color:#666}.red{color:#b84b4b}.green{color:#6e9f72}
+.panel{border:1px solid #222;background:#090909;padding:20px;margin:22px 0;box-shadow:0 0 30px #000}
+pre{white-space:pre-wrap;word-break:break-word}
+input,button{background:#050505;color:#ddd;border:1px solid #444;padding:10px;font:inherit}
+button{cursor:pointer}button:hover{border-color:#aaa}.hidden{display:none}
+#terminal{min-height:180px}
+</style>
+</head>
+<body>
+<main>
+<div class="dim">ARCHIVE // 0x11 // CONNECTION UNVERIFIED</div>
+<h1>@+#(@)#/@?(@+#+-+-_+&gt;</h1>
+
+<section class="panel">
+<pre>
+17
+03:17
+01110100 01101000 01100101
+
+THE FIRST ANSWER IS WRONG.
+
+THE SECOND ANSWER
+DEPENDS ON THE FIRST.
+
+THE THIRD ANSWER
+CHANGES THE SECOND.
+
+DO NOT COMPUTE THE LAST ANSWER.
+</pre>
+</section>
+
+<section class="panel">
+<div class="dim">[INPUT REQUIRED]</div>
+<p>Decode the binary. Enter the result.</p>
+<input id="answer" autocomplete="off" spellcheck="false">
+<button onclick="check()">SUBMIT</button>
+<p id="status"></p>
+</section>
+
+<section id="stage2" class="panel hidden">
+<div class="red">ARCHIVE 01 UNLOCKED</div>
+<pre>
+A = 17
+B = 19
+
+Choose correctly.
+
+If A is correct, LEVEL 05 uses A.
+If B is correct, LEVEL 05 uses B.
+
+There is no clue telling you which one.
+
+Or is there?
+
+Look at the timestamp again.
+</pre>
+<button onclick="reveal()">INSPECT TIMESTAMP</button>
+<pre id="terminal"></pre>
+</section>
+
+<section id="stage3" class="panel hidden">
+<div class="green">SIGNAL DETECTED</div>
+<pre>
+03:17
+
+03 + 17 = 20
+17 - 03 = 14
+
+20 / 14
+
+The archive does not ask for a number.
+
+It asks what the number is hiding.
+
+Continue manually.
+</pre>
+</section>
+
+<footer class="dim">No external tracking. No account required. Archive is fictional.</footer>
+</main>
+
+<script>
+function check(){
+  const v=document.getElementById('answer').value.trim().toLowerCase();
+  const s=document.getElementById('status');
+  if(v==="the"){
+    s.textContent="CORRECT. That was the easy part.";
+    s.className="green";
+    document.getElementById('stage2').classList.remove('hidden');
+  }else{
+    s.textContent="INCORRECT. The archive expected something simpler.";
+    s.className="red";
+  }
+}
+function reveal(){
+  const t=document.getElementById('terminal');
+  t.textContent =
+`> inspecting timestamp...
+> 03:17
+> checksum mismatch
+> source: UNKNOWN
+>
+> WARNING:
+> The timestamp appears to have been modified
+> after the archive was created.
+>
+> Someone edited the past.`;
+  document.getElementById('stage3').classList.remove('hidden');
+}
+</script>
+</body>
+</html>
