@@ -1,90 +1,199 @@
-<section class="panel">
-<div class="dim" id="progress">QUESTION 001 / 209</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XZX-8998</title>
 
-<pre id="question">
-17
-03:17
-01110100 01101000 01100101
-
-THE FIRST ANSWER IS WRONG.
-
-Decode the binary.
-</pre>
-
-<input id="answer" autocomplete="off" spellcheck="false">
-<button onclick="check()">SUBMIT</button>
-<p id="status"></p>
-</section>
-
-<script>
-const questions = [
-  {
-    q: `17
-03:17
-01110100 01101000 01100101
-
-Decode the binary.`,
-    a: "the"
-  },
-
-  {
-    q: `ARCHIVE 01
-
-A = 17
-B = 19
-
-Which number is prime?`,
-    a: "both"
-  },
-
-  {
-    q: `03:17
-
-03 + 17 = ?
-17 - 03 = ?
-
-The archive asks for the difference.`,
-    a: "14"
-  }
-
-  // Nanti dilanjutkan sampai QUESTION 209
-];
-
-let current = 0;
-
-function check(){
-  const input = document
-    .getElementById("answer")
-    .value
-    .trim()
-    .toLowerCase();
-
-  const status = document.getElementById("status");
-
-  if(input === questions[current].a){
-    status.textContent = "CORRECT.";
-    status.className = "green";
-
-    current++;
-
-    if(current >= questions.length){
-      document.getElementById("question").textContent =
-        "ARCHIVE COMPLETE.\n\n209 QUESTIONS CLEARED.";
-      document.getElementById("progress").textContent =
-        "QUESTION 209 / 209";
-      return;
+<style>
+    * {
+        box-sizing: border-box;
     }
 
-    document.getElementById("progress").textContent =
-      `QUESTION ${String(current + 1).padStart(3,"0")} / 209`;
+    body {
+        margin: 0;
+        background: #000;
+        color: #fff;
+        font-family: monospace;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
 
-    document.getElementById("question").textContent =
-      questions[current].q;
+    .screen {
+        text-align: center;
+        width: 90%;
+        max-width: 700px;
+    }
 
-    document.getElementById("answer").value = "";
-  }else{
-    status.textContent = "INCORRECT.";
-    status.className = "red";
-  }
+    .numbers {
+        font-size: 18px;
+        line-height: 1.15;
+        letter-spacing: 3px;
+        opacity: 0.8;
+        white-space: pre;
+        text-shadow: 0 0 8px #fff;
+    }
+
+    .title {
+        margin-top: 35px;
+        font-size: 26px;
+        letter-spacing: 10px;
+    }
+
+    .time {
+        margin-top: 25px;
+        font-size: 20px;
+        letter-spacing: 5px;
+    }
+
+    .archive {
+        margin-top: 15px;
+        font-size: 13px;
+        opacity: 0.5;
+        letter-spacing: 4px;
+    }
+
+    button {
+        margin-top: 45px;
+        padding: 12px 35px;
+        background: transparent;
+        border: 1px solid white;
+        color: white;
+        font-family: monospace;
+        cursor: pointer;
+        letter-spacing: 3px;
+    }
+
+    button:hover {
+        background: white;
+        color: black;
+    }
+
+    #question {
+        display: none;
+    }
+
+    .binary {
+        margin: 30px 0;
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    input {
+        background: black;
+        border: 1px solid white;
+        color: white;
+        padding: 12px;
+        font-family: monospace;
+        text-align: center;
+        outline: none;
+    }
+
+    .submit {
+        margin-top: 15px;
+    }
+
+    #message {
+        margin-top: 20px;
+        font-size: 13px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+    <!-- INTRO -->
+    <div id="intro">
+
+        <div class="numbers">
+8998 1730 4921 0387
+7319 2048 6612 9174
+5730 8891 2037 4418
+        </div>
+
+        <div class="title">
+            XZX-8998
+        </div>
+
+        <div class="time">
+            03:17
+        </div>
+
+        <div class="archive">
+            THE NULL ARCHIVE
+        </div>
+
+        <button onclick="enterArchive()">
+            ENTER ARCHIVE
+        </button>
+
+    </div>
+
+
+    <!-- QUESTION 001 -->
+    <div id="question">
+
+        <div>
+            QUESTION 001 / 209
+        </div>
+
+        <div class="binary">
+            01110100 01101000 01100101
+        </div>
+
+        <div>
+            Decode the binary.
+        </div>
+
+        <input id="answer" type="text">
+
+        <br>
+
+        <button class="submit" onclick="submitAnswer()">
+            SUBMIT
+        </button>
+
+        <div id="message"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function enterArchive() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("question").style.display = "block";
 }
-    </script>
+
+function submitAnswer() {
+
+    let answer = document
+        .getElementById("answer")
+        .value
+        .trim()
+        .toLowerCase();
+
+    if (answer === "the") {
+
+        document.getElementById("message").innerText =
+            "ANSWER ACCEPTED.";
+
+    } else {
+
+        document.getElementById("message").innerText =
+            "WRONG ANSWER.";
+
+    }
+}
+
+</script>
+
+</body>
+</html>
