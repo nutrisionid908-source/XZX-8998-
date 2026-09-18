@@ -72,7 +72,8 @@
         color: black;
     }
 
-    #question {
+    #question,
+    #book {
         display: none;
     }
 
@@ -90,10 +91,33 @@
         margin-top: 15px;
     }
 
-    #message {
+    #status {
         margin-top: 20px;
         font-size: 13px;
         min-height: 20px;
+        white-space: pre-line;
+    }
+
+    .book-title {
+        font-size: 22px;
+        letter-spacing: 8px;
+        margin-bottom: 35px;
+    }
+
+    .book-page {
+        font-size: 15px;
+        line-height: 1.7;
+        white-space: pre-line;
+        min-height: 180px;
+    }
+
+    .page-number {
+        margin-top: 25px;
+        opacity: 0.5;
+    }
+
+    .book-button {
+        margin-top: 30px;
     }
 </style>
 </head>
@@ -137,15 +161,7 @@
             QUESTION 001 / 209
         </div>
 
-        <pre id="questionText">
-17
-03:17
-01110100 01101000 01100101
-
-THE FIRST ANSWER IS WRONG.
-
-Decode the binary.
-        </pre>
+        <pre id="questionText"></pre>
 
         <input
             id="answer"
@@ -163,10 +179,37 @@ Decode the binary.
 
     </section>
 
+
+    <!-- ARCHIVE BOOK -->
+    <section id="book">
+
+        <div class="book-title">
+            THE ARCHIVE BOOK
+        </div>
+
+        <div id="bookPage" class="book-page"></div>
+
+        <div class="page-number" id="pageNumber">
+            PAGE XVII
+        </div>
+
+        <button
+            class="book-button"
+            onclick="nextPage()"
+        >
+            TURN PAGE
+        </button>
+
+    </section>
+
 </div>
 
 
 <script>
+
+/* =========================
+   QUESTIONS
+========================= */
 
 const questions = [
 
@@ -202,55 +245,150 @@ The archive asks for the difference.`,
     },
 
     {
-        q: `ARCHIVE 02
+        q: `ARCHIVE 04
 
-01000001
-01000010
-01000011
+8998
 
-Decode them.`,
-        a: "abc"
+Reverse the number.`,
+        a: "8998"
     },
 
     {
-        q: `17
+        q: `ARCHIVE 05
 
-The number is not the answer.
+17 → 03 → 17
 
-Look again.
-
-What did you ignore?`,
+What number appears twice?`,
         a: "17"
-    }
+    },
 
-    // Nanti tambahkan QUESTION 006 sampai QUESTION 209 di sini.
+    {
+        q: `ARCHIVE 06
+
+01111000 01111010 01111000
+
+Decode.`,
+        a: "xzx"
+    },
+
+    {
+        q: `ARCHIVE 07
+
+The archive contains
+209 questions.
+
+What is the last question?`,
+        a: "209"
+    },
+
+    {
+        q: `ARCHIVE 08
+
+8998 - 8997 = ?`,
+        a: "1"
+    },
+
+    {
+        q: `ARCHIVE 09
+
+03:17
+
+Read it as numbers.
+
+03
+17
+
+What is their sum?`,
+        a: "20"
+    },
+
+    {
+        q: `ARCHIVE 10
+
+THE FIRST ANSWER WAS CORRECT.
+
+But the archive says otherwise.
+
+Type:
+
+WRONG`,
+        a: "wrong"
+    }
 
 ];
 
 
-let current = 0;
-let firstTrap = true;
+/* =========================
+   BOOK PAGES
+========================= */
 
+const pages = [
+
+`THE ARCHIVE HAS NO BEGINNING.`,
+
+`THE FIRST PAGE WAS REMOVED.
+
+THE LAST PAGE HAS NOT BEEN WRITTEN.`,
+
+`03:17
+
+8998
+
+THE NUMBERS ARE NOT RANDOM.`,
+
+`СИСТЕМА: НЕИЗВЕСТНО
+
+LOOK AGAIN.`,
+
+`17 → 03 → 17
+
+DO NOT TRUST THE ORDER.`,
+
+`01110100 01101000 01100101
+
+WHY IS THE ARCHIVE STILL LOCKED?`,
+
+`YOU FOUND THE BOOK.
+
+THE BOOK FOUND YOU.
+
+NOW FORGET PAGE XXI.`
+
+];
+
+
+let currentQuestion = 0;
+let currentPage = 0;
+
+
+/* =========================
+   ENTER ARCHIVE
+========================= */
 
 function enterArchive() {
 
     document.getElementById("intro").style.display = "none";
+
     document.getElementById("question").style.display = "block";
 
-    showQuestion();
+    loadQuestion();
 
 }
 
 
-function showQuestion() {
+/* =========================
+   LOAD QUESTION
+========================= */
+
+function loadQuestion() {
+
+    const q = questions[currentQuestion];
 
     document.getElementById("progress").innerText =
-        "QUESTION " +
-        String(current + 1).padStart(3, "0") +
-        " / 209";
+        `QUESTION ${String(currentQuestion + 1).padStart(3, "0")} / 209`;
 
     document.getElementById("questionText").innerText =
-        questions[current].q;
+        q.q;
 
     document.getElementById("answer").value = "";
 
@@ -259,91 +397,157 @@ function showQuestion() {
 }
 
 
+/* =========================
+   RANDOM COORDINATE
+========================= */
+
+function randomCoordinate() {
+
+    /*
+       Fictional X/Y coordinate.
+       Bukan koordinat dunia nyata.
+    */
+
+    const x =
+        (Math.random() * 200 - 100).toFixed(4);
+
+    const y =
+        (Math.random() * 200 - 100).toFixed(4);
+
+    return `X: ${x}
+Y: ${y}`;
+
+}
+
+
+/* =========================
+   CHECK ANSWER
+========================= */
+
 function check() {
 
-    const answer = document
-        .getElementById("answer")
+    const input =
+        document.getElementById("answer")
         .value
         .trim()
         .toLowerCase();
 
-    const status = document.getElementById("status");
+    const status =
+        document.getElementById("status");
 
-    if (answer === questions[current].a) {
+
+    if (input === questions[currentQuestion].a) {
+
+        status.innerText =
+`ANSWER ACCEPTED.
+
+ARCHIVE FRAGMENT UNLOCKED.
+
+COORDINATE:
+
+${randomCoordinate()}`;
+
+
+        currentQuestion++;
+
 
         /*
-        PRANK PERTAMA
+           Tunggu sebentar sebelum pindah
+           ke pertanyaan berikutnya.
         */
-
-        if (current === 0 && firstTrap) {
-
-            firstTrap = false;
-
-            status.innerText =
-                "ANSWER ACCEPTED.\n\n" +
-                "...\n\n" +
-                "NO.\n\n" +
-                "THE FIRST ANSWER IS WRONG.";
-
-            return;
-        }
-
-
-        status.innerText = "ANSWER ACCEPTED.";
 
         setTimeout(() => {
 
-            current++;
+            if (currentQuestion >= questions.length) {
 
-            if (current < questions.length) {
-
-                showQuestion();
+                openBook();
 
             } else {
 
-                document.getElementById("progress").innerText =
-                    "ARCHIVE STATUS: UNKNOWN";
-
-                document.getElementById("questionText").innerText =
-                    `ARCHIVE COMPLETE.
-
-YOU FOUND THE END.
-
-OR DID YOU?
-
-209 QUESTIONS WERE EXPECTED.
-
-THE ARCHIVE CONTAINS MORE.`;
-
-                document.getElementById("answer").style.display =
-                    "none";
-
-                document.querySelector(".submit").style.display =
-                    "none";
+                loadQuestion();
 
             }
 
-        }, 1200);
+        }, 2500);
+
 
     } else {
 
-        status.innerText = "WRONG ANSWER.";
+        status.innerText =
+`ANSWER REJECTED.
+
+THE ARCHIVE REMEMBERS YOUR MISTAKE.`;
+
 
     }
 
 }
 
 
-document.getElementById("answer").addEventListener(
-    "keydown",
-    function(event) {
+/* =========================
+   OPEN BOOK
+========================= */
 
-        if (event.key === "Enter") {
-            check();
-        }
+function openBook() {
+
+    document.getElementById("question").style.display =
+        "none";
+
+    document.getElementById("book").style.display =
+        "block";
+
+    currentPage = 0;
+
+    showPage();
+
+}
+
+
+/* =========================
+   SHOW PAGE
+========================= */
+
+function showPage() {
+
+    document.getElementById("bookPage").innerText =
+        pages[currentPage];
+
+    document.getElementById("pageNumber").innerText =
+        `PAGE ${String(currentPage + 17).padStart(3, "0")}`;
+
+}
+
+
+/* =========================
+   NEXT PAGE
+========================= */
+
+function nextPage() {
+
+    currentPage++;
+
+    if (currentPage >= pages.length) {
+
+        document.getElementById("bookPage").innerText =
+`CONGRATULATIONS.
+
+YOU FOUND THE ARCHIVE.
+
+BUT THIS WAS ONLY
+THE FIRST LAYER.
+
+@+#(@)#/@?(@+#+-+-_+>`;
+
+        document.getElementById("pageNumber").innerText =
+            "ARCHIVE CLOSED";
+
+        return;
 
     }
-);
+
+    showPage();
+
+}
 
 </script>
 
