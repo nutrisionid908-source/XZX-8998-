@@ -3,122 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XZX-8998</title>
+
+<title>THE NULL ARCHIVE</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body {
-        margin: 0;
-        background: #000;
-        color: #fff;
-        font-family: monospace;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: monospace;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
 
-    .screen {
-        text-align: center;
-        width: 90%;
-        max-width: 700px;
-    }
+.screen {
+    width: 92%;
+    max-width: 760px;
+    text-align: center;
+}
 
-    .numbers {
-        font-size: 18px;
-        line-height: 1.15;
-        letter-spacing: 3px;
-        opacity: 0.8;
-        white-space: pre;
-        text-shadow: 0 0 8px #fff;
-    }
+pre {
+    font-family: monospace;
+}
 
-    .title {
-        margin-top: 35px;
-        font-size: 26px;
-        letter-spacing: 10px;
-    }
+.hidden {
+    display: none !important;
+}
 
-    .time {
-        margin-top: 25px;
-        font-size: 20px;
-        letter-spacing: 5px;
-    }
+/* =========================
+   INTRO
+========================= */
 
-    .archive {
-        margin-top: 15px;
-        font-size: 13px;
-        opacity: 0.5;
-        letter-spacing: 4px;
-    }
+#intro {
+    animation: fadeIn 2s ease;
+}
 
-    button {
-        margin-top: 45px;
-        padding: 12px 35px;
-        background: transparent;
-        border: 1px solid white;
-        color: white;
-        font-family: monospace;
-        cursor: pointer;
-        letter-spacing: 3px;
-    }
+.numbers {
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: 3px;
+    opacity: .75;
+    text-shadow: 0 0 8px white;
+}
 
-    button:hover {
-        background: white;
-        color: black;
-    }
+.symbols {
+    margin-top: 30px;
+    font-size: 22px;
+    letter-spacing: 8px;
+    opacity: .7;
+}
 
-    #question,
-    #book {
-        display: none;
-    }
+.title {
+    margin-top: 35px;
+    font-size: 28px;
+    letter-spacing: 9px;
+}
 
-    input {
-        background: black;
-        border: 1px solid white;
-        color: white;
-        padding: 12px;
-        font-family: monospace;
-        text-align: center;
-        outline: none;
-    }
+.subtitle {
+    margin-top: 15px;
+    opacity: .45;
+    letter-spacing: 4px;
+}
 
-    .submit {
-        margin-top: 15px;
-    }
+.time {
+    margin-top: 25px;
+    font-size: 20px;
+    letter-spacing: 6px;
+}
 
-    #status {
-        margin-top: 20px;
-        font-size: 13px;
-        min-height: 20px;
-        white-space: pre-line;
-    }
+.enter {
+    margin-top: 45px;
+}
 
-    .book-title {
-        font-size: 22px;
-        letter-spacing: 8px;
-        margin-bottom: 35px;
-    }
+/* =========================
+   GENERAL
+========================= */
 
-    .book-page {
-        font-size: 15px;
-        line-height: 1.7;
-        white-space: pre-line;
-        min-height: 180px;
-    }
+button {
+    padding: 12px 30px;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    font-family: monospace;
+    letter-spacing: 3px;
+    cursor: pointer;
+}
 
-    .page-number {
-        margin-top: 25px;
-        opacity: 0.5;
-    }
+button:hover {
+    background: white;
+    color: black;
+}
 
-    .book-button {
-        margin-top: 30px;
+input {
+    width: 80%;
+    max-width: 500px;
+    background: black;
+    color: white;
+    border: 1px solid white;
+    padding: 13px;
+    font-family: monospace;
+    text-align: center;
+    outline: none;
+    letter-spacing: 2px;
+}
+
+input:focus {
+    box-shadow: 0 0 12px rgba(255,255,255,.25);
+}
+
+.node {
+    font-size: 12px;
+    opacity: .45;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+.code {
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 2px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.output {
+    margin-top: 30px;
+    min-height: 120px;
+    border-top: 1px solid rgba(255,255,255,.2);
+    border-bottom: 1px solid rgba(255,255,255,.2);
+    padding: 25px 10px;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.status {
+    margin-top: 20px;
+    min-height: 25px;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.muted {
+    opacity: .45;
+}
+
+/* =========================
+   ARCHIVE
+========================= */
+
+#archive {
+    animation: fadeIn 1s ease;
+}
+
+.archive-title {
+    font-size: 20px;
+    letter-spacing: 7px;
+    margin-bottom: 15px;
+}
+
+.archive-symbol {
+    font-size: 24px;
+    letter-spacing: 7px;
+    opacity: .65;
+    margin-bottom: 30px;
+}
+
+.input-label {
+    opacity: .4;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+/* =========================
+   DECOY
+========================= */
+
+#decoy {
+    animation: fadeIn 1s ease;
+}
+
+.warning {
+    font-size: 14px;
+    letter-spacing: 4px;
+    opacity: .7;
+    margin-bottom: 30px;
+}
+
+.glitch {
+    animation: glitch .15s infinite;
+}
+
+/* =========================
+   IMAGE CLUE
+========================= */
+
+#imageLayer img {
+    max-width: 100%;
+    max-height: 300px;
+    filter: grayscale(1) contrast(1.2);
+    opacity: .85;
+    border: 1px solid rgba(255,255,255,.25);
+}
+
+.image-code {
+    margin-top: 25px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    line-height: 1.8;
+}
+
+/* =========================
+   MORSE
+========================= */
+
+#morseLayer {
+    animation: fadeIn 1s ease;
+}
+
+.morse-display {
+    font-size: 20px;
+    letter-spacing: 6px;
+    opacity: .65;
+    margin: 30px 0;
+}
+
+#playMorse {
+    margin-top: 15px;
+}
+
+/* =========================
+   ENDLESS ARCHIVE
+========================= */
+
+#endless {
+    animation: fadeIn 1s ease;
+}
+
+.fragment {
+    margin-top: 30px;
+    font-size: 13px;
+    line-height: 2;
+    letter-spacing: 3px;
+    opacity: .7;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    25% { transform: translate(1px,-1px); }
+    50% { transform: translate(-1px,1px); }
+    75% { transform: translate(1px,1px); }
+    100% { transform: translate(0); }
+}
 </style>
 </head>
 
@@ -126,427 +282,805 @@
 
 <div class="screen">
 
-    <!-- INTRO -->
-    <div id="intro">
+<!-- =====================================================
+     INTRO
+===================================================== -->
 
-        <div class="numbers">
+<section id="intro">
+
+    <div class="numbers">
 8998 1730 4921 0387
 7319 2048 6612 9174
 5730 8891 2037 4418
-        </div>
+    </div>
 
-        <div class="title">
-            XZX-8998
-        </div>
+    <div class="symbols">
+        𐩐 𐩘 𐩚 𐩔 𐩓
+    </div>
 
-        <div class="time">
-            03:17
-        </div>
+    <div class="title">
+        XZX-8998
+    </div>
 
-        <div class="archive">
-            THE NULL ARCHIVE
-        </div>
+    <div class="subtitle">
+        THE NULL ARCHIVE
+    </div>
 
-        <button onclick="enterArchive()">
-            ENTER ARCHIVE
-        </button>
+    <div class="time">
+        03:17
+    </div>
+
+    <div class="code muted">
+        XVII · III · XVII
+    </div>
+
+    <button class="enter" onclick="enterArchive()">
+        ENTER
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     ARCHIVE NODE
+===================================================== -->
+
+<section id="archive" class="hidden">
+
+    <div class="node">
+        ARCHIVE NODE // 03:17
+    </div>
+
+    <div class="archive-title">
+        𐩐 𐩘 𐩚 𐩔 𐩓
+    </div>
+
+    <div class="archive-symbol">
+        XVII · III · XVII
+    </div>
+
+    <div class="code">
+7F-03-17-X9-4C
+𐩘-81-𐩓-17
+0F-17-2C-03
+
+03 → 17
+17 → 03
+    </div>
+
+    <div class="input-label">
+        INPUT REQUIRED
+    </div>
+
+    <input
+        id="archiveInput"
+        autocomplete="off"
+        spellcheck="false"
+    >
+
+    <br>
+
+    <button onclick="processInput()">
+        SUBMIT
+    </button>
+
+    <div id="archiveOutput" class="output"></div>
+
+    <div id="archiveStatus" class="status"></div>
+
+</section>
+
+
+<!-- =====================================================
+     DECOY / NODE 02
+===================================================== -->
+
+<section id="decoy" class="hidden">
+
+    <div class="node">
+        NODE 02
+    </div>
+
+    <div class="warning">
+        𐩐 𐩘 𐩚 𐩔 𐩓
+    </div>
+
+    <div class="code">
+03 17 03 17 03 17
+
+7F 7F 03 7F 17 7F
+
+Q4-𐩘-81-𐩓
+    </div>
+
+    <div class="input-label">
+        INPUT REQUIRED
+    </div>
+
+    <input
+        id="nodeTwoInput"
+        autocomplete="off"
+        spellcheck="false"
+    >
+
+    <br>
+
+    <button onclick="processNodeTwo()">
+        SUBMIT
+    </button>
+
+    <div id="nodeTwoOutput" class="output"></div>
+
+    <div id="nodeTwoStatus" class="status"></div>
+
+</section>
+
+
+<!-- =====================================================
+     IMAGE LAYER
+===================================================== -->
+
+<section id="imageLayer" class="hidden">
+
+    <div class="node">
+        ARCHIVE FRAGMENT
+    </div>
+
+    <div class="code">
+4F-17-03-XX
+
+[ IMAGE INDEX : 017 ]
+    </div>
+
+    <br>
+
+    <!--
+        Ganti URL ini dengan JPG milikmu.
+        Contoh:
+        archive_017.jpg
+    -->
+
+    <img
+        src="archive_017.jpg"
+        alt="ARCHIVE FRAGMENT"
+    >
+
+    <div class="image-code">
+        aXJjaGl2ZV8wMTcuanBn
+    </div>
+
+    <div class="status">
+        THE IMAGE HAS NO NAME.
+    </div>
+
+    <button onclick="openMorse()">
+        CONTINUE
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     MORSE LAYER
+===================================================== -->
+
+<section id="morseLayer" class="hidden">
+
+    <div class="node">
+        AUDIO FRAGMENT // 017
+    </div>
+
+    <div class="code">
+01101 / 100 / 010 / 101
+
+𐩐 𐩘 𐩚 𐩔 𐩓
+    </div>
+
+    <div class="morse-display">
+        · · · — — — · · ·
+    </div>
+
+    <button id="playMorse" onclick="playMorse()">
+        PLAY AUDIO
+    </button>
+
+    <div id="morseStatus" class="status">
+        THE MESSAGE IS NOT WRITTEN.
+    </div>
+
+    <input
+        id="morseInput"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="INPUT"
+    >
+
+    <br>
+
+    <button onclick="checkMorse()">
+        SUBMIT
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     ENDLESS ARCHIVE
+===================================================== -->
+
+<section id="endless" class="hidden">
+
+    <div class="node">
+        ARCHIVE NODE // UNKNOWN
+    </div>
+
+    <div class="archive-title">
+        THE NULL ARCHIVE
+    </div>
+
+    <div class="code">
+YOU PASSED THIS NODE.
+
+THE OTHERS REMAIN.
+    </div>
+
+    <div class="fragment">
+
+        𐩐𐩘𐩚𐩔𐩓
+
+        17 / 03 / 17
+
+        7F-03-X9-17
+
+        0C 11 7A 03 89 98
+
+        XV · III · XVII
 
     </div>
 
+    <div class="output">
 
-    <!-- QUESTION SYSTEM -->
-    <section id="question">
+        OUTPUT:
 
-        <div id="progress">
-            QUESTION 001 / 209
-        </div>
+        𐩓𐩐𐩘𐩚
 
-        <pre id="questionText"></pre>
+        THE ARCHIVE DOES NOT
+        SPEAK IN THE LANGUAGE
+        OF THE READER.
 
-        <input
-            id="answer"
-            autocomplete="off"
-            spellcheck="false"
-        >
+    </div>
 
-        <br>
+    <button onclick="nextArchive()">
+        CONTINUE
+    </button>
 
-        <button class="submit" onclick="check()">
-            SUBMIT
-        </button>
-
-        <p id="status"></p>
-
-    </section>
-
-
-    <!-- ARCHIVE BOOK -->
-    <section id="book">
-
-        <div class="book-title">
-            THE ARCHIVE BOOK
-        </div>
-
-        <div id="bookPage" class="book-page"></div>
-
-        <div class="page-number" id="pageNumber">
-            PAGE XVII
-        </div>
-
-        <button
-            class="book-button"
-            onclick="nextPage()"
-        >
-            TURN PAGE
-        </button>
-
-    </section>
+</section>
 
 </div>
 
 
 <script>
 
-/* =========================
-   QUESTIONS
-========================= */
+/* =====================================================
+   ARCHIVE STATE
+===================================================== */
 
-const questions = [
-
-    {
-        q: `17
-03:17
-01110100 01101000 01100101
-
-THE FIRST ANSWER IS WRONG.
-
-Decode the binary.`,
-        a: "the"
-    },
-
-    {
-        q: `ARCHIVE 01
-
-A = 17
-B = 19
-
-Which number is prime?`,
-        a: "both"
-    },
-
-    {
-        q: `03:17
-
-03 + 17 = ?
-17 - 03 = ?
-
-The archive asks for the difference.`,
-        a: "14"
-    },
-
-    {
-        q: `ARCHIVE 04
-
-8998
-
-Reverse the number.`,
-        a: "8998"
-    },
-
-    {
-        q: `ARCHIVE 05
-
-17 → 03 → 17
-
-What number appears twice?`,
-        a: "17"
-    },
-
-    {
-        q: `ARCHIVE 06
-
-01111000 01111010 01111000
-
-Decode.`,
-        a: "xzx"
-    },
-
-    {
-        q: `ARCHIVE 07
-
-The archive contains
-209 questions.
-
-What is the last question?`,
-        a: "209"
-    },
-
-    {
-        q: `ARCHIVE 08
-
-8998 - 8997 = ?`,
-        a: "1"
-    },
-
-    {
-        q: `ARCHIVE 09
-
-03:17
-
-Read it as numbers.
-
-03
-17
-
-What is their sum?`,
-        a: "20"
-    },
-
-    {
-        q: `ARCHIVE 10
-
-THE FIRST ANSWER WAS CORRECT.
-
-But the archive says otherwise.
-
-Type:
-
-WRONG`,
-        a: "wrong"
-    }
-
-];
+let archiveNode = 1;
+let decoyTriggered = false;
 
 
-/* =========================
-   BOOK PAGES
-========================= */
-
-const pages = [
-
-`THE ARCHIVE HAS NO BEGINNING.`,
-
-`THE FIRST PAGE WAS REMOVED.
-
-THE LAST PAGE HAS NOT BEEN WRITTEN.`,
-
-`03:17
-
-8998
-
-THE NUMBERS ARE NOT RANDOM.`,
-
-`СИСТЕМА: НЕИЗВЕСТНО
-
-LOOK AGAIN.`,
-
-`17 → 03 → 17
-
-DO NOT TRUST THE ORDER.`,
-
-`01110100 01101000 01100101
-
-WHY IS THE ARCHIVE STILL LOCKED?`,
-
-`YOU FOUND THE BOOK.
-
-THE BOOK FOUND YOU.
-
-NOW FORGET PAGE XXI.`
-
-];
-
-
-let currentQuestion = 0;
-let currentPage = 0;
-
-
-/* =========================
-   ENTER ARCHIVE
-========================= */
+/* =====================================================
+   INTRO
+===================================================== */
 
 function enterArchive() {
 
-    document.getElementById("intro").style.display = "none";
+    document.getElementById("intro").classList.add("hidden");
 
-    document.getElementById("question").style.display = "block";
-
-    loadQuestion();
-
+    document.getElementById("archive")
+        .classList.remove("hidden");
 }
 
 
-/* =========================
-   LOAD QUESTION
-========================= */
+/* =====================================================
+   NODE 01
+===================================================== */
 
-function loadQuestion() {
-
-    const q = questions[currentQuestion];
-
-    document.getElementById("progress").innerText =
-        `QUESTION ${String(currentQuestion + 1).padStart(3, "0")} / 209`;
-
-    document.getElementById("questionText").innerText =
-        q.q;
-
-    document.getElementById("answer").value = "";
-
-    document.getElementById("status").innerText = "";
-
-}
-
-
-/* =========================
-   RANDOM COORDINATE
-========================= */
-
-function randomCoordinate() {
-
-    /*
-       Fictional X/Y coordinate.
-       Bukan koordinat dunia nyata.
-    */
-
-    const x =
-        (Math.random() * 200 - 100).toFixed(4);
-
-    const y =
-        (Math.random() * 200 - 100).toFixed(4);
-
-    return `X: ${x}
-Y: ${y}`;
-
-}
-
-
-/* =========================
-   CHECK ANSWER
-========================= */
-
-function check() {
+function processInput() {
 
     const input =
-        document.getElementById("answer")
+        document.getElementById("archiveInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const output =
+        document.getElementById("archiveOutput");
+
+    const status =
+        document.getElementById("archiveStatus");
+
+
+    /*
+        Input pertama.
+        Tidak diberi tahu secara eksplisit.
+    */
+
+    if (input === "8998") {
+
+        output.innerText =
+`7A-03-17-X9-4C
+
+𐩘 𐩓 𐩐 𐩚
+
+03 → 17
+17 → 03
+
+NODE 02`;
+
+        status.innerText =
+            "OUTPUT RECEIVED.";
+
+        setTimeout(() => {
+
+            document.getElementById("archive")
+                .classList.add("hidden");
+
+            document.getElementById("decoy")
+                .classList.remove("hidden");
+
+        }, 1800);
+
+    } else {
+
+        output.innerText =
+`RECEIVED.
+
+X9-7F-03-${randomCode()}
+
+THE ARCHIVE REMEMBERS.`;
+
+        status.innerText =
+            "NO FURTHER RESPONSE.";
+    }
+}
+
+
+/* =====================================================
+   NODE 02
+   THIS IS ACTUALLY PUZZLE 2
+===================================================== */
+
+function processNodeTwo() {
+
+    const input =
+        document.getElementById("nodeTwoInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const output =
+        document.getElementById("nodeTwoOutput");
+
+    const status =
+        document.getElementById("nodeTwoStatus");
+
+
+    /*
+        DECOY INPUT
+
+        "17" terlihat masuk akal.
+        Sistem menerimanya,
+        tetapi sebenarnya salah interpretasi.
+    */
+
+    if (input === "17" && !decoyTriggered) {
+
+        decoyTriggered = true;
+
+        output.innerText =
+`OUTPUT ACCEPTED.
+
+𐩓𐩐𐩘
+
+7F-17-03-XX
+
+ARCHIVE CONTINUES.`;
+
+        status.innerText =
+            "PATH ACCEPTED.";
+
+        setTimeout(() => {
+
+            document.getElementById("decoy")
+                .classList.add("hidden");
+
+            falsePath();
+
+        }, 2500);
+
+        return;
+    }
+
+
+    /*
+        JAWABAN SEBENARNYA
+        Untuk contoh ini: 03
+    */
+
+    if (input === "03") {
+
+        output.innerText =
+`4F-17-03-XX
+
+𐩐𐩘𐩚
+
+[ IMAGE INDEX : 017 ]
+
+aXJjaGl2ZV8wMTcuanBn`;
+
+        status.innerText =
+            "FRAGMENT RECOVERED.";
+
+        setTimeout(() => {
+
+            document.getElementById("decoy")
+                .classList.add("hidden");
+
+            document.getElementById("imageLayer")
+                .classList.remove("hidden");
+
+        }, 2200);
+
+    } else {
+
+        output.innerText =
+`7F-A2-${randomCode()}-03
+
+THE ORDER IS WRONG.`;
+
+        status.innerText =
+            "NO TRANSITION.";
+    }
+}
+
+
+/* =====================================================
+   FALSE PATH
+===================================================== */
+
+function falsePath() {
+
+    document.getElementById("decoy")
+        .classList.remove("hidden");
+
+    const output =
+        document.getElementById("nodeTwoOutput");
+
+    const status =
+        document.getElementById("nodeTwoStatus");
+
+    output.innerText =
+`ARCHIVE INCONSISTENCY
+
+NODE 02
+
+THE VALUE WAS VALID.
+
+THE INTERPRETATION WAS NOT.
+
+FALSE PATH DETECTED.
+
+RETURNING...`;
+
+    status.innerText =
+        "THE ARCHIVE HAS CORRECTED YOUR PATH.";
+
+    setTimeout(() => {
+
+        decoyTriggered = false;
+
+        output.innerText =
+`03 17 03 17 03 17
+
+7F 7F 03 7F 17 7F
+
+Q4-𐩘-81-𐩓
+
+ONE VALUE DOES NOT BELONG.`;
+
+        status.innerText =
+            "NODE 02 RESTORED.";
+
+    }, 3000);
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+function openMorse() {
+
+    document.getElementById("imageLayer")
+        .classList.add("hidden");
+
+    document.getElementById("morseLayer")
+        .classList.remove("hidden");
+}
+
+
+/* =====================================================
+   MORSE AUDIO
+===================================================== */
+
+const morseTable = {
+
+    A: ".-",
+    B: "-...",
+    C: "-.-.",
+    D: "-..",
+    E: ".",
+    F: "..-.",
+    G: "--.",
+    H: "....",
+    I: "..",
+    J: ".---",
+    K: "-.-",
+    L: ".-..",
+    M: "--",
+    N: "-.",
+    O: "---",
+    P: ".--.",
+    Q: "--.-",
+    R: ".-.",
+    S: "...",
+    T: "-",
+    U: "..-",
+    V: "...-",
+    W: ".--",
+    X: "-..-",
+    Y: "-.--",
+    Z: "--.."
+};
+
+
+function morseToAudio(text) {
+
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+    const ctx = new AudioContext();
+
+    let time = ctx.currentTime;
+
+    const unit = 0.09;
+    const frequency = 620;
+
+    for (const char of text.toUpperCase()) {
+
+        if (char === " ") {
+
+            time += unit * 4;
+            continue;
+        }
+
+        const code = morseTable[char];
+
+        if (!code) continue;
+
+        for (const symbol of code) {
+
+            const oscillator =
+                ctx.createOscillator();
+
+            const gain =
+                ctx.createGain();
+
+            oscillator.frequency.value =
+                frequency;
+
+            oscillator.connect(gain);
+            gain.connect(ctx.destination);
+
+            oscillator.start(time);
+
+            oscillator.stop(
+                time +
+                (symbol === "."
+                    ? unit
+                    : unit * 3)
+            );
+
+            time +=
+                symbol === "."
+                    ? unit * 2
+                    : unit * 4;
+        }
+
+        time += unit * 2;
+    }
+}
+
+
+function playMorse() {
+
+    /*
+        Pesan audio tidak ditampilkan.
+        Pemain harus mendengarkan.
+    */
+
+    morseToAudio("THE IMAGE IS HIDDEN");
+
+    document.getElementById("morseStatus")
+        .innerText =
+        "AUDIO TRANSMITTED.";
+}
+
+
+/* =====================================================
+   MORSE INPUT
+===================================================== */
+
+function checkMorse() {
+
+    const input =
+        document.getElementById("morseInput")
         .value
         .trim()
         .toLowerCase();
 
     const status =
-        document.getElementById("status");
+        document.getElementById("morseStatus");
 
-
-    if (input === questions[currentQuestion].a) {
+    if (
+        input === "the image is hidden" ||
+        input === "image is hidden"
+    ) {
 
         status.innerText =
-`ANSWER ACCEPTED.
+`MESSAGE ACCEPTED.
 
-ARCHIVE FRAGMENT UNLOCKED.
-
-COORDINATE:
-
-${randomCoordinate()}`;
-
-
-        currentQuestion++;
-
-
-        /*
-           Tunggu sebentar sebelum pindah
-           ke pertanyaan berikutnya.
-        */
+THE NEXT ARCHIVE
+HAS NO NUMBER.`;
 
         setTimeout(() => {
 
-            if (currentQuestion >= questions.length) {
+            document.getElementById("morseLayer")
+                .classList.add("hidden");
 
-                openBook();
+            document.getElementById("endless")
+                .classList.remove("hidden");
 
-            } else {
-
-                loadQuestion();
-
-            }
-
-        }, 2500);
-
+        }, 1800);
 
     } else {
 
         status.innerText =
-`ANSWER REJECTED.
+            "THE AUDIO DOES NOT AGREE.";
+    }
+}
 
-THE ARCHIVE REMEMBERS YOUR MISTAKE.`;
+
+/* =====================================================
+   ENDLESS NODE
+===================================================== */
+
+function nextArchive() {
+
+    archiveNode++;
+
+    document.getElementById("endless")
+        .classList.add("hidden");
+
+    document.getElementById("archive")
+        .classList.remove("hidden");
+
+    document.querySelector(".node").innerText =
+        "ARCHIVE NODE // UNKNOWN";
+
+    document.getElementById("archiveInput")
+        .value = "";
+
+    document.getElementById("archiveOutput")
+        .innerText =
+`𐩐𐩘𐩚𐩔𐩓
+
+${randomCode()}
+${randomCode()}
+17 · 03 · 17
+
+THE ORDER HAS CHANGED.`;
+
+    document.getElementById("archiveStatus")
+        .innerText =
+        "INPUT REQUIRED.";
+}
 
 
+/* =====================================================
+   RANDOM-LOOKING CODE
+===================================================== */
+
+function randomCode() {
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let result = "";
+
+    for (let i = 0; i < 8; i++) {
+
+        result +=
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
     }
 
+    return result;
 }
 
 
-/* =========================
-   OPEN BOOK
-========================= */
+/* =====================================================
+   HIDDEN FRAGMENT SYSTEM
+===================================================== */
 
-function openBook() {
+/*
+    Potongan ini sengaja tidak langsung
+    menjadi kalimat.
 
-    document.getElementById("question").style.display =
-        "none";
+    Nanti bisa dikembangkan menjadi:
 
-    document.getElementById("book").style.display =
-        "block";
+    HTML fragment
+    +
+    CSS fragment
+    +
+    JS fragment
+    +
+    hasil puzzle
 
-    currentPage = 0;
+    = hidden message
+*/
 
-    showPage();
+const archiveFragments = {
 
-}
+    A: "17",
 
+    B: "03",
 
-/* =========================
-   SHOW PAGE
-========================= */
+    C: "17",
 
-function showPage() {
+    D: "𐩐𐩘𐩚",
 
-    document.getElementById("bookPage").innerText =
-        pages[currentPage];
+    E: "7F-03",
 
-    document.getElementById("pageNumber").innerText =
-        `PAGE ${String(currentPage + 17).padStart(3, "0")}`;
-
-}
+    F: "X9"
+};
 
 
-/* =========================
-   NEXT PAGE
-========================= */
+/* =====================================================
+   HIDDEN JPG DECODER
+===================================================== */
 
-function nextPage() {
+/*
+    Base64 berikut bukan encryption.
+    Hanya encoding.
 
-    currentPage++;
+    aXJjaGl2ZV8wMTcuanBn
+    =
+    archive_017.jpg
+*/
 
-    if (currentPage >= pages.length) {
+function decodeImageName() {
 
-        document.getElementById("bookPage").innerText =
-`CONGRATULATIONS.
+    const encoded =
+        "aXJjaGl2ZV8wMTcuanBn";
 
-YOU FOUND THE ARCHIVE.
-
-BUT THIS WAS ONLY
-THE FIRST LAYER.
-
-@+#(@)#/@?(@+#+-+-_+>`;
-
-        document.getElementById("pageNumber").innerText =
-            "ARCHIVE CLOSED";
-
-        return;
-
-    }
-
-    showPage();
-
+    return atob(encoded);
 }
 
 </script>
