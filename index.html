@@ -282,6 +282,72 @@ input:focus {
 
 <div class="screen">
 
+    <div id="intro">
+
+        <div class="numbers">
+8998 1730 4921 0387
+7319 2048 6612 9174
+5730 8891 2037 4418
+        </div>
+
+        <div class="title">
+            XZX-8998
+        </div>
+
+        <div class="time">
+            03:17
+        </div>
+
+        <div class="archive">
+            THE NULL ARCHIVE
+        </div>
+
+        <button onclick="enterArchive()">
+            ENTER ARCHIVE
+        </button>
+
+    </div>
+
+
+    <section id="question">
+
+        <div id="archiveID">
+            ARCHIVE 001
+        </div>
+
+        <pre id="questionText"></pre>
+
+        <input
+            id="answer"
+            autocomplete="off"
+            spellcheck="false"
+        >
+
+        <br>
+
+        <button class="submit" onclick="submitAnswer()">
+            SUBMIT
+        </button>
+
+        <p id="status"></p>
+
+    </section>
+
+
+    <section id="result">
+
+        <div id="resultText"></div>
+
+        <button
+            class="submit"
+            onclick="continueArchive()">
+            CONTINUE
+        </button>
+
+    </section>
+
+</div>
+
 <!-- =====================================================
      INTRO
 ===================================================== -->
