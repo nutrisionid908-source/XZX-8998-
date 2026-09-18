@@ -76,12 +76,6 @@
         display: none;
     }
 
-    .binary {
-        margin: 30px 0;
-        font-size: 18px;
-        letter-spacing: 2px;
-    }
-
     input {
         background: black;
         border: 1px solid white;
@@ -136,26 +130,38 @@
     </div>
 
 
-    <!-- QUESTIONS -->
-    <div id="question">
+    <!-- QUESTION SYSTEM -->
+    <section id="question">
 
         <div id="progress">
             QUESTION 001 / 209
         </div>
 
-        <pre id="questionText"></pre>
+        <pre id="questionText">
+17
+03:17
+01110100 01101000 01100101
 
-        <input id="answer" autocomplete="off" spellcheck="false">
+THE FIRST ANSWER IS WRONG.
+
+Decode the binary.
+        </pre>
+
+        <input
+            id="answer"
+            autocomplete="off"
+            spellcheck="false"
+        >
 
         <br>
 
-        <button class="submit" onclick="submitAnswer()">
+        <button class="submit" onclick="check()">
             SUBMIT
         </button>
 
-        <div id="message"></div>
+        <p id="status"></p>
 
-    </div>
+    </section>
 
 </div>
 
@@ -172,8 +178,7 @@ const questions = [
 THE FIRST ANSWER IS WRONG.
 
 Decode the binary.`,
-        a: "the",
-        trap: true
+        a: "the"
     },
 
     {
@@ -183,8 +188,7 @@ A = 17
 B = 19
 
 Which number is prime?`,
-        a: "both",
-        trap: false
+        a: "both"
     },
 
     {
@@ -194,8 +198,7 @@ Which number is prime?`,
 17 - 03 = ?
 
 The archive asks for the difference.`,
-        a: "14",
-        trap: false
+        a: "14"
     },
 
     {
@@ -205,11 +208,8 @@ The archive asks for the difference.`,
 01000010
 01000011
 
-One of these is not what it appears to be.
-
 Decode them.`,
-        a: "abc",
-        trap: true
+        a: "abc"
     },
 
     {
@@ -220,14 +220,16 @@ The number is not the answer.
 Look again.
 
 What did you ignore?`,
-        a: "17",
-        trap: false
+        a: "17"
     }
+
+    // Nanti tambahkan QUESTION 006 sampai QUESTION 209 di sini.
 
 ];
 
+
 let current = 0;
-let firstTrapTriggered = false;
+let firstTrap = true;
 
 
 function enterArchive() {
@@ -252,32 +254,32 @@ function showQuestion() {
 
     document.getElementById("answer").value = "";
 
-    document.getElementById("message").innerText = "";
+    document.getElementById("status").innerText = "";
 
 }
 
 
-function submitAnswer() {
+function check() {
 
-    let answer = document
+    const answer = document
         .getElementById("answer")
         .value
         .trim()
         .toLowerCase();
 
-    let correct = questions[current].a;
+    const status = document.getElementById("status");
 
-    if (answer === correct) {
+    if (answer === questions[current].a) {
 
         /*
-        FIRST TRAP
+        PRANK PERTAMA
         */
 
-        if (questions[current].trap && !firstTrapTriggered) {
+        if (current === 0 && firstTrap) {
 
-            firstTrapTriggered = true;
+            firstTrap = false;
 
-            document.getElementById("message").innerText =
+            status.innerText =
                 "ANSWER ACCEPTED.\n\n" +
                 "...\n\n" +
                 "NO.\n\n" +
@@ -287,8 +289,7 @@ function submitAnswer() {
         }
 
 
-        document.getElementById("message").innerText =
-            "ANSWER ACCEPTED.";
+        status.innerText = "ANSWER ACCEPTED.";
 
         setTimeout(() => {
 
@@ -300,6 +301,9 @@ function submitAnswer() {
 
             } else {
 
+                document.getElementById("progress").innerText =
+                    "ARCHIVE STATUS: UNKNOWN";
+
                 document.getElementById("questionText").innerText =
                     `ARCHIVE COMPLETE.
 
@@ -310,9 +314,6 @@ OR DID YOU?
 209 QUESTIONS WERE EXPECTED.
 
 THE ARCHIVE CONTAINS MORE.`;
-
-                document.getElementById("progress").innerText =
-                    "ARCHIVE STATUS: UNKNOWN";
 
                 document.getElementById("answer").style.display =
                     "none";
@@ -326,21 +327,23 @@ THE ARCHIVE CONTAINS MORE.`;
 
     } else {
 
-        document.getElementById("message").innerText =
-            "WRONG ANSWER.";
+        status.innerText = "WRONG ANSWER.";
 
     }
 
 }
 
 
-document.getElementById("answer").addEventListener("keydown", function(event) {
+document.getElementById("answer").addEventListener(
+    "keydown",
+    function(event) {
 
-    if (event.key === "Enter") {
-        submitAnswer();
+        if (event.key === "Enter") {
+            check();
+        }
+
     }
-
-});
+);
 
 </script>
 
