@@ -99,6 +99,7 @@
     #message {
         margin-top: 20px;
         font-size: 13px;
+        min-height: 20px;
     }
 </style>
 </head>
@@ -135,22 +136,16 @@
     </div>
 
 
-    <!-- QUESTION 001 -->
+    <!-- QUESTIONS -->
     <div id="question">
 
-        <div>
+        <div id="progress">
             QUESTION 001 / 209
         </div>
 
-        <div class="binary">
-            01110100 01101000 01100101
-        </div>
+        <pre id="questionText"></pre>
 
-        <div>
-            Decode the binary.
-        </div>
-
-        <input id="answer" type="text">
+        <input id="answer" autocomplete="off" spellcheck="false">
 
         <br>
 
@@ -167,10 +162,100 @@
 
 <script>
 
+const questions = [
+
+    {
+        q: `17
+03:17
+01110100 01101000 01100101
+
+THE FIRST ANSWER IS WRONG.
+
+Decode the binary.`,
+        a: "the",
+        trap: true
+    },
+
+    {
+        q: `ARCHIVE 01
+
+A = 17
+B = 19
+
+Which number is prime?`,
+        a: "both",
+        trap: false
+    },
+
+    {
+        q: `03:17
+
+03 + 17 = ?
+17 - 03 = ?
+
+The archive asks for the difference.`,
+        a: "14",
+        trap: false
+    },
+
+    {
+        q: `ARCHIVE 02
+
+01000001
+01000010
+01000011
+
+One of these is not what it appears to be.
+
+Decode them.`,
+        a: "abc",
+        trap: true
+    },
+
+    {
+        q: `17
+
+The number is not the answer.
+
+Look again.
+
+What did you ignore?`,
+        a: "17",
+        trap: false
+    }
+
+];
+
+let current = 0;
+let firstTrapTriggered = false;
+
+
 function enterArchive() {
+
     document.getElementById("intro").style.display = "none";
     document.getElementById("question").style.display = "block";
+
+    showQuestion();
+
 }
+
+
+function showQuestion() {
+
+    document.getElementById("progress").innerText =
+        "QUESTION " +
+        String(current + 1).padStart(3, "0") +
+        " / 209";
+
+    document.getElementById("questionText").innerText =
+        questions[current].q;
+
+    document.getElementById("answer").value = "";
+
+    document.getElementById("message").innerText = "";
+
+}
+
 
 function submitAnswer() {
 
@@ -180,10 +265,64 @@ function submitAnswer() {
         .trim()
         .toLowerCase();
 
-    if (answer === "the") {
+    let correct = questions[current].a;
+
+    if (answer === correct) {
+
+        /*
+        FIRST TRAP
+        */
+
+        if (questions[current].trap && !firstTrapTriggered) {
+
+            firstTrapTriggered = true;
+
+            document.getElementById("message").innerText =
+                "ANSWER ACCEPTED.\n\n" +
+                "...\n\n" +
+                "NO.\n\n" +
+                "THE FIRST ANSWER IS WRONG.";
+
+            return;
+        }
+
 
         document.getElementById("message").innerText =
             "ANSWER ACCEPTED.";
+
+        setTimeout(() => {
+
+            current++;
+
+            if (current < questions.length) {
+
+                showQuestion();
+
+            } else {
+
+                document.getElementById("questionText").innerText =
+                    `ARCHIVE COMPLETE.
+
+YOU FOUND THE END.
+
+OR DID YOU?
+
+209 QUESTIONS WERE EXPECTED.
+
+THE ARCHIVE CONTAINS MORE.`;
+
+                document.getElementById("progress").innerText =
+                    "ARCHIVE STATUS: UNKNOWN";
+
+                document.getElementById("answer").style.display =
+                    "none";
+
+                document.querySelector(".submit").style.display =
+                    "none";
+
+            }
+
+        }, 1200);
 
     } else {
 
@@ -191,7 +330,17 @@ function submitAnswer() {
             "WRONG ANSWER.";
 
     }
+
 }
+
+
+document.getElementById("answer").addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        submitAnswer();
+    }
+
+});
 
 </script>
 
