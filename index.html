@@ -1083,6 +1083,491 @@ function decodeImageName() {
     return atob(encoded);
 }
 
+<script>
+/*
+====================================================
+THE NULL ARCHIVE
+====================================================
+*/
+
+const INTERNAL_LIMIT = 16790;
+
+let stage = 1;
+let archiveIndex = 1;
+let currentPuzzle = null;
+let previousAnswer = "";
+let path = "true";
+
+
+/*
+====================================================
+STAGE DATA
+====================================================
+*/
+
+const stages = {
+
+    1: [
+        {
+            text:
+`17
+03:17
+01110100 01101000 01100101
+
+Decode the binary.`,
+            answer: "the"
+        },
+
+        {
+            text:
+`8998
+
+Reverse nothing.
+
+What remains unchanged?`,
+            answer: "8998"
+        },
+
+        {
+            text:
+`17 → 03 → 17
+
+Which number appears twice?`,
+            answer: "17"
+        }
+    ],
+
+
+    2: [
+        {
+            text:
+`STAGE 02
+
+01101110 01110101 01101100 01101100
+
+Decode.`,
+            answer: "null"
+        },
+
+        {
+            text:
+`THE MESSAGE IS HIDDEN.
+
+Find the word:
+
+H I D D E N`,
+            answer: "hidden"
+        },
+
+        {
+            text:
+`03:17
+
+17 - 03 = ?`,
+            answer: "14"
+        }
+    ],
+
+
+    3: [
+        {
+            text:
+`ARCHIVE 017
+
+The answer is not
+where you are looking.
+
+Look again.`,
+            answer: "again"
+        },
+
+        {
+            text:
+`17
+03
+17
+8998
+
+Which number appears twice?`,
+            answer: "17"
+        }
+    ]
+};
+
+
+/*
+====================================================
+DECOYS
+====================================================
+*/
+
+const decoys = [
+
+`ARCHIVE 000
+
+THE ARCHIVE ENDS HERE.
+
+CONTINUE?`,
+
+`SYSTEM ERROR
+
+THE NEXT STAGE
+DOES NOT EXIST.`,
+
+`8998
+
+THIS IS THE ANSWER.
+
+OR IS IT?`,
+
+`YOU FOUND IT.
+
+RETURN TO THE BEGINNING.`
+
+];
+
+
+/*
+====================================================
+ENTER ARCHIVE
+====================================================
+*/
+
+function enterArchive() {
+
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("question").style.display = "block";
+
+    stage = 1;
+    archiveIndex = 1;
+
+    loadPuzzle();
+}
+
+
+/*
+====================================================
+GET CURRENT PUZZLE
+====================================================
+*/
+
+function loadPuzzle() {
+
+    const stageData = stages[stage];
+
+    /*
+    Kalau stage belum mempunyai data,
+    buat puzzle baru secara procedural.
+    */
+
+    if (!stageData || stageData.length === 0) {
+
+        generateEndlessPuzzle();
+        return;
+    }
+
+
+    /*
+    Decoy chance.
+    */
+
+    if (Math.random() < 0.18) {
+
+        currentPuzzle = {
+            text:
+                decoys[
+                    Math.floor(
+                        Math.random() * decoys.length
+                    )
+                ],
+
+            answer: "continue",
+
+            decoy: true
+        };
+
+        path = "decoy";
+
+    } else {
+
+        const index =
+            (archiveIndex - 1) % stageData.length;
+
+        currentPuzzle = stageData[index];
+
+        path = "true";
+    }
+
+
+    document.getElementById("archiveID")
+        .innerText =
+        `ARCHIVE ${archiveIndex}`;
+
+
+    document.getElementById("questionText")
+        .innerText =
+        currentPuzzle.text;
+
+
+    document.getElementById("answer")
+        .value = "";
+
+
+    document.getElementById("status")
+        .innerText = "";
+
+}
+
+
+/*
+====================================================
+SUBMIT
+====================================================
+*/
+
+function submitAnswer() {
+
+    const input =
+        document.getElementById("answer")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const status =
+        document.getElementById("status");
+
+
+    if (input !== currentPuzzle.answer) {
+
+        status.innerText =
+`ANSWER REJECTED.
+
+THE ARCHIVE REMEMBERS
+YOUR MISTAKE.`;
+
+        return;
+    }
+
+
+    previousAnswer = input;
+
+
+    status.innerText =
+`ANSWER ACCEPTED.
+
+ARCHIVE FRAGMENT UNLOCKED.`;
+
+
+    /*
+    Decoy berhasil dilewati.
+    */
+
+    if (currentPuzzle.decoy) {
+
+        status.innerText =
+`ANSWER ACCEPTED.
+
+THE PATH CONTINUES.
+
+BUT SOMETHING IS WRONG.`;
+
+    }
+
+
+    setTimeout(() => {
+
+        continuePuzzle();
+
+    }, 1200);
+
+}
+
+
+/*
+====================================================
+CONTINUE PUZZLE
+====================================================
+*/
+
+function continuePuzzle() {
+
+    archiveIndex++;
+
+
+    /*
+    STAGE TRANSITION
+    */
+
+    if (stage === 1 && archiveIndex > 3) {
+
+        stage = 2;
+
+        archiveIndex = 1;
+
+        showStageMessage(
+`STAGE 02
+
+THE ARCHIVE CONTINUES.
+
+YOU HAVE PASSED THIS PUZZLE.
+
+THE OTHERS REMAIN.`
+        );
+
+        return;
+    }
+
+
+    if (stage === 2 && archiveIndex > 3) {
+
+        stage = 3;
+
+        archiveIndex = 1;
+
+        showStageMessage(
+`STAGE 03
+
+YOU FOUND ANOTHER PATH.
+
+DO NOT ASSUME
+IT IS THE CORRECT ONE.`
+        );
+
+        return;
+    }
+
+
+    /*
+    Setelah Stage 3,
+    sistem masuk mode endless.
+    */
+
+    if (
+        stage >= 3 &&
+        archiveIndex > INTERNAL_LIMIT
+    ) {
+
+        archiveIndex = 1;
+    }
+
+
+    loadPuzzle();
+
+}
+
+
+/*
+====================================================
+STAGE MESSAGE
+====================================================
+*/
+
+function showStageMessage(message) {
+
+    document.getElementById("question")
+        .style.display = "none";
+
+    document.getElementById("result")
+        .style.display = "block";
+
+
+    document.getElementById("resultText")
+        .innerText = message;
+
+}
+
+
+/*
+====================================================
+CONTINUE BUTTON
+====================================================
+*/
+
+function continueArchive() {
+
+    document.getElementById("result")
+        .style.display = "none";
+
+    document.getElementById("question")
+        .style.display = "block";
+
+
+    loadPuzzle();
+
+}
+
+
+/*
+====================================================
+ENDLESS PUZZLES
+====================================================
+*/
+
+function generateEndlessPuzzle() {
+
+    const number =
+        archiveIndex;
+
+
+    currentPuzzle = {
+
+        text:
+`ARCHIVE ${number}
+
+THE ARCHIVE GENERATED
+A NEW QUESTION.
+
+17
+03:17
+8998
+
+Find the number
+that does not belong.`,
+
+        answer: "8998",
+
+        decoy: false
+    };
+
+
+    document.getElementById("archiveID")
+        .innerText =
+        `ARCHIVE ${number}`;
+
+
+    document.getElementById("questionText")
+        .innerText =
+        currentPuzzle.text;
+
+
+    document.getElementById("answer")
+        .value = "";
+
+
+    document.getElementById("status")
+        .innerText = "";
+
+}
+
+
+/*
+====================================================
+HIDDEN MESSAGE
+====================================================
+*/
+
+function revealHiddenMessage() {
+
+    if (archiveIndex % 17 === 0) {
+
+        console.log(
+            "THE FIRST MESSAGE WAS NEVER THE FIRST."
+        );
+
+    }
+
+}
 </script>
 
 </body>
